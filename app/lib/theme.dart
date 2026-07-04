@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 /// Paleta de colores central de la app.
 class AppColors {
-  static const primary = Color(0xFF7B2CBF);
-  static const primaryLight = Color(0xFF9D4EDD);
-  static const primaryDark = Color(0xFF5A189A);
+  static const primary = Color(0xFF1A5CFF);
+  static const primaryLight = Color(0xFF5C8CFF);
+  static const primaryDark = Color(0xFF0E3AB0);
 
-  static const ink = Color(0xFF14181F);
+  static const ink = Color(0xFF101728);
   static const slate = Color(0xFF4B5563);
-  static const background = Color(0xFFF5F6F8);
+  static const background = Color(0xFFF2F5FC);
   static const surface = Colors.white;
 
   static const success = Color(0xFF16A34A);
@@ -20,7 +20,7 @@ class AppColors {
   // Categorias de edad
   static const ageChild = Color(0xFF3B82F6);
   static const ageYouth = Color(0xFF7C3AED);
-  static const ageAdult = Color(0xFF14181F);
+  static const ageAdult = Color(0xFF101728);
 
   // Niveles de entrenamiento
   static const levelBeginner = success;
@@ -28,9 +28,9 @@ class AppColors {
   static const levelAdvanced = violet;
 
   static const gradient = LinearGradient(
-    colors: [primary, primaryDark],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+    colors: [primaryLight, primary, primaryDark],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
   );
 }
 

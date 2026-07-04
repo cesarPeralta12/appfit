@@ -48,13 +48,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     final items = [
       _MenuItem(
-        title: 'Alumnos',
-        subtitle: 'Perfiles y progreso',
-        icon: Icons.people_alt,
-        color: AppColors.info,
-        builder: (_) => const StudentsListScreen(),
-      ),
-      _MenuItem(
         title: 'Sesiones',
         subtitle: 'Calendario y entrenamientos',
         icon: Icons.event_available,
@@ -69,6 +62,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         builder: (_) => const ExercisesListScreen(),
       ),
       _MenuItem(
+        title: 'Alumnos',
+        subtitle: 'Perfiles y progreso',
+        icon: Icons.people_alt,
+        color: AppColors.info,
+        builder: (_) => const StudentsListScreen(),
+      ),
+      _MenuItem(
         title: 'Reportes',
         subtitle: 'Estadisticas generales',
         icon: Icons.bar_chart,
@@ -78,92 +78,111 @@ class _DashboardScreenState extends State<DashboardScreen> {
     ];
 
     return Scaffold(
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: _loadOverview,
-          child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
-            children: [
-              Row(
-                children: [
-                  const AppLogo(size: 44),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+      body: RefreshIndicator(
+        onRefresh: _loadOverview,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 28),
+              decoration: const BoxDecoration(
+                gradient: AppColors.gradient,
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(28), bottomRight: Radius.circular(28)),
+              ),
+              child: SafeArea(
+                bottom: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
-                        Text('Hola, ${user?.name.split(' ').first ?? ''}',
-                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                        const Text('Que entrenemos hoy', style: TextStyle(color: Colors.grey)),
+                        const AppLogo(size: 40),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text('Hola, ${user?.name.split(' ').first ?? ''}',
+                              style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white)),
+                        ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              if (_overview != null)
-                Row(
-                  children: [
-                    Expanded(child: _statCard('Alumnos activos', '${_overview!['active_students']}', Icons.people, AppColors.info)),
-                    const SizedBox(width: 12),
-                    Expanded(child: _statCard('Sesiones del mes', '${_overview!['sessions_this_month']}', Icons.event, AppColors.success)),
+                    const SizedBox(height: 18),
+                    if (_overview != null)
+                      Row(
+                        children: [
+                          Expanded(
+                              child: _statCard('Alumnos activos', '${_overview!['active_students']}', Icons.people)),
+                          const SizedBox(width: 12),
+                          Expanded(
+                              child: _statCard('Sesiones del mes', '${_overview!['sessions_this_month']}', Icons.event)),
+                        ],
+                      ),
                   ],
                 ),
-              const SizedBox(height: 24),
-              const Text('Tu panel', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-              const SizedBox(height: 12),
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                mainAxisSpacing: 14,
-                crossAxisSpacing: 14,
-                childAspectRatio: 1.05,
-                children: items.map((item) => _menuCard(context, item)).toList(),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _statCard(String label, String value, IconData icon, Color color) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(icon, color: color),
-            const SizedBox(height: 8),
-            Text(value, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Accesos rapidos', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  const SizedBox(height: 12),
+                  ...items.map((item) => _menuRow(context, item)),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _menuCard(BuildContext context, _MenuItem item) {
+  Widget _statCard(String label, String value, IconData icon) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.16),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: Colors.white),
+          const SizedBox(height: 8),
+          Text(value, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+          Text(label, style: const TextStyle(color: Colors.white70, fontSize: 12)),
+        ],
+      ),
+    );
+  }
+
+  Widget _menuRow(BuildContext context, _MenuItem item) {
     return Card(
+      margin: const EdgeInsets.only(bottom: 12),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: item.builder)),
         child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          child: Row(
             children: [
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(color: item.color.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(12)),
                 child: Icon(item.icon, color: item.color),
               ),
-              const Spacer(),
-              Text(item.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-              const SizedBox(height: 2),
-              Text(item.subtitle, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(item.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                    const SizedBox(height: 2),
+                    Text(item.subtitle, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right, color: Colors.grey),
             ],
           ),
         ),

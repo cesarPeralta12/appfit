@@ -1,4 +1,4 @@
-package com.gymapp.gymapp_flutter
+package com.novatrack.coach
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -92,10 +92,10 @@ class _CalendarTabState extends State<CalendarTab> {
                 });
               },
               onPageChanged: (focused) => _focusedDay = focused,
-              calendarStyle: CalendarStyle(
-                todayDecoration: BoxDecoration(color: AppColors.primaryLight, shape: BoxShape.circle),
-                selectedDecoration: const BoxDecoration(color: AppColors.primary, shape: BoxShape.circle),
-                markerDecoration: const BoxDecoration(color: AppColors.ink, shape: BoxShape.circle),
+              calendarStyle: const CalendarStyle(
+                todayDecoration: BoxDecoration(color: Color(0xFFFFD3B0), shape: BoxShape.circle),
+                selectedDecoration: BoxDecoration(color: AppColors.primary, shape: BoxShape.circle),
+                markerDecoration: BoxDecoration(color: Color(0xFF14181F), shape: BoxShape.circle),
               ),
               headerStyle: const HeaderStyle(formatButtonVisible: false, titleCentered: true),
             ),

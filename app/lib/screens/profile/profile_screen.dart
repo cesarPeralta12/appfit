@@ -128,7 +128,7 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(height: 32),
                 const Center(child: AppLogo(size: 40)),
                 const SizedBox(height: 8),
-                const Center(child: Text('PulsoFit v1.0', style: TextStyle(color: Colors.grey, fontSize: 12))),
+                const Center(child: Text('Superfit v1.0', style: TextStyle(color: Colors.grey, fontSize: 12))),
               ],
             ),
     );

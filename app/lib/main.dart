@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => AuthProvider(),
       child: MaterialApp(
-        title: 'GymApp Coach',
+        title: 'Superfit Coach',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         home: const _Root(),
